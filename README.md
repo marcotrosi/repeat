@@ -11,7 +11,10 @@ our beginners.
 
 So currently this is under development and will be released when the group says the tool is ready.
 
-## Building `repeat`
+## Building
 
     make
 
+## Usage
+
+    repeat 3 foo # prints foofoofoo
