@@ -17,4 +17,5 @@ So currently this is under development and will be released when the group says 
 
 ## Usage
 
-    repeat 3 foo # prints foofoofoo
+    $ repeat 3 foo
+    foofoofoo
