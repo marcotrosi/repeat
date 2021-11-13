@@ -19,3 +19,5 @@ So currently this is under development and will be released when the group says 
 
     $ repeat 3 foo
     foofoofoo
+    $ echo -e 'foo\0' | repeat 3
+    foofoofoo
