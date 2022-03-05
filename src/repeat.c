@@ -13,11 +13,12 @@ typedef char bool;
 /* functions <<< */
 void printHelp(void)
 {
-   printf("USAGE: repeat [-v] [-h] [-n] [-s <sep>] repetitions [string]\n");
+   printf("USAGE: repeat [-v] [-h] [-n] [-e] [-s <sep>] repetitions [string]\n");
    printf("\n");
    printf("OPTIONS:\n");
    printf("  -s <sep>  optional separator string\n");
    printf("  -n        do not output the trailing newline\n");
+   printf("  -e        interpret some few escape sequences (\\\\,\\t,\\n)\n");
    printf("  -v        print version info\n");
    printf("  -h        print help text\n");
    printf("\n");
@@ -28,17 +29,19 @@ void printHelp(void)
    printf("    => foo,foo,foo\n");
    printf("  repeat -- -2 foo\n");
    printf("    => oofoof\n");
+   printf("  repeat -e -s '\\t' 3 foo\n");
+   printf("    => foo\tfoo\tfoo\n");
 }
 
 void printUsage(void)
 {
-   fprintf(stderr, "USAGE: repeat [-v] [-h] [-n] [-s <sep>] repetitions [string]\n");
+   fprintf(stderr, "USAGE: repeat [-v] [-h] [-n] [-e] [-s <sep>] repetitions [string]\n");
    fprintf(stderr, "run 'repeat -h' for more information\n");
 }
 
 void printVersion(void)
 {
-   printf("VERSION: 0.2\n");
+   printf("VERSION: 0.3\n");
 }
 
 void reverseString(char* str)
@@ -54,6 +57,62 @@ void reverseString(char* str)
         str[n - i - 1] = tmp;
     }
 }
+
+void replEscSeq(char *str)
+{
+   unsigned long rd = 0u;
+   unsigned long wr = 0u;
+   unsigned long n  = strlen(str);
+   bool bslash      = false;
+
+   for(rd = 0u; rd <= n ; rd++)
+   {
+      if(bslash)
+      {
+         switch(str[rd])
+         {
+            case '\\':
+               {
+                  wr++;
+                  break;
+               }
+            case 't':
+               {
+                  str[wr] = '\t';
+                  wr++;
+                  break;
+               }
+            case 'n':
+               {
+                  str[wr] = '\n';
+                  wr++;
+                  break;
+               }
+            default:
+               {
+                  wr++;
+                  str[wr] = str[rd];
+                  wr++;
+                  break;
+               }
+         }
+         bslash = false;
+      }
+      else
+      {
+         if(str[rd] == '\\')
+         {
+            bslash = true;
+         }
+         else
+         {
+            str[wr] = str[rd];
+            wr++;
+         }
+      }
+   }
+}
+
 /* >>> */
 
 int main(int argc, char * const argv[])
@@ -68,10 +127,11 @@ int main(int argc, char * const argv[])
    bool version = false;
    bool help    = false;
    bool sep     = false;
+   bool escape  = false;
    bool addlf   = true;
    int opt;
 
-   while((opt = getopt(argc, argv, ":vhns:")) != -1) /* <<< */
+   while((opt = getopt(argc, argv, ":vhnes:")) != -1) /* <<< */
    {
       switch(opt)
       {
@@ -88,6 +148,11 @@ int main(int argc, char * const argv[])
          case 'n':
             {
                addlf = false;
+               break;
+            }
+         case 'e':
+            {
+               escape = true;
                break;
             }
          case 's':
@@ -159,6 +224,16 @@ int main(int argc, char * const argv[])
    {
       perror("repeat error: repitition value is not a number");
       return 5;
+   }
+
+   if(escape)
+   {
+      replEscSeq(string);
+
+      if(sep)
+      {
+         replEscSeq(separator);
+      }
    }
 
    if(num_of_repititions < 0)

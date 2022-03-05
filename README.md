@@ -27,17 +27,20 @@ our beginners.
     foo,foo,foo
     $ repeat -- -2 foo
     oofoof
+    $ repeat -e -s '\t' 3 foo
+    foo   foo   foo
 
 
 ## Usage
 
-    repeat [-v] [-h] [-n] [-s <sep>] repetitions [string]
+    repeat [-v] [-h] [-n] [-e] [-s <sep>] repetitions [string]
 
 
 ## Options
 
     -s <sep>  optional separator string
     -n        do not output the trailing newline
+    -e        interpret some few escape sequences (\\,\t,\n)
     -v        print version info
     -h        print help text
 
