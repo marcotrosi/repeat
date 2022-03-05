@@ -13,11 +13,11 @@ typedef char bool;
 /* functions <<< */
 void printHelp(void)
 {
-   printf("USAGE: repeat [-v] [-h] [-z] [-s <sep>] repetitions [string]\n");
+   printf("USAGE: repeat [-v] [-h] [-n] [-s <sep>] repetitions [string]\n");
    printf("\n");
    printf("OPTIONS:\n");
    printf("  -s <sep>  optional separator string\n");
-   printf("  -z        don't append line feed to output\n");
+   printf("  -n        do not output the trailing newline\n");
    printf("  -v        print version info\n");
    printf("  -h        print help text\n");
    printf("\n");
@@ -32,13 +32,13 @@ void printHelp(void)
 
 void printUsage(void)
 {
-   fprintf(stderr, "USAGE: repeat [-v] [-h] [-z] [-s <sep>] repetitions [string]\n");
+   fprintf(stderr, "USAGE: repeat [-v] [-h] [-n] [-s <sep>] repetitions [string]\n");
    fprintf(stderr, "run 'repeat -h' for more information\n");
 }
 
 void printVersion(void)
 {
-   printf("VERSION: 0.1\n");
+   printf("VERSION: 0.2\n");
 }
 
 void reverseString(char* str)
@@ -71,7 +71,7 @@ int main(int argc, char * const argv[])
    bool addlf   = true;
    int opt;
 
-   while((opt = getopt(argc, argv, ":vhzs:")) != -1) /* <<< */
+   while((opt = getopt(argc, argv, ":vhns:")) != -1) /* <<< */
    {
       switch(opt)
       {
@@ -85,7 +85,7 @@ int main(int argc, char * const argv[])
                help = true;
                break;
             }
-         case 'z':
+         case 'n':
             {
                addlf = false;
                break;
@@ -176,7 +176,7 @@ int main(int argc, char * const argv[])
       }
    }
 
-   if(addlf)
+   if(addlf) /* add line feed to output */
    {
       printf("\n");
    }
