@@ -31,13 +31,13 @@ our beginners.
 
 ## Usage
 
-    repeat [-v] [-h] [-z] [-s <sep>] repetitions [string]
+    repeat [-v] [-h] [-n] [-s <sep>] repetitions [string]
 
 
 ## Options
 
     -s <sep>  optional separator string
-    -z        don't append line feed to output
+    -n        do not output the trailing newline
     -v        print version info
     -h        print help text
 
