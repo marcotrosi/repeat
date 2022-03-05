@@ -1,6 +1,7 @@
 # repeat
 
-Commandline program that prints a string repeatedly.
+Commandline program that repeats a string by a given amount. Supports a separator and reversing the input string.
+
 
 ## Background
 
@@ -9,15 +10,32 @@ the internet we had to admit that there was no satisfying POSIX-like solution av
 cut, tr, grep, tac, wc, and so on. So we brought this topic to our C-coding group to have a nice practicing playground for
 our beginners.
 
-So currently this is under development and will be released when the group says the tool is ready.
 
 ## Building
 
     make
 
-## Usage
+
+## Examples
 
     $ repeat 3 foo
     foofoofoo
-    $ echo -e 'foo\0' | repeat 3
+    $ echo 'foo' | repeat 3
     foofoofoo
+    $ repeat -s ',' 3 foo
+    foo,foo,foo
+    $ repeat -- -2 foo
+    oofoof
+
+
+## Usage
+
+    repeat [-v] [-h] [-z] [-s <sep>] repetitions [string]
+
+
+## Options
+
+    -s <sep>  optional separator string
+    -z        don't append line feed to output
+    -v        print version info
+    -h        print help text
