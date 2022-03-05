@@ -1,6 +1,7 @@
 # repeat
 
-Commandline program that repeats a string by a given amount. Supports a separator and reversing the input string.
+Commandline program that repeats a string by a given amount. Supports a separator string, reversing the input string and
+can be used in pipes.
 
 
 ## Background
@@ -39,3 +40,4 @@ our beginners.
     -z        don't append line feed to output
     -v        print version info
     -h        print help text
+
