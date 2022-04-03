@@ -20,7 +20,7 @@ as we know it from tools like cut, tr, grep, tac, wc, and so on. Here some possi
     $ for i in `seq 3`; do echo -n 'foo'; done
     foofoofoo
 
-So we brought this topic to our C-coding group to have a nice practicing playground for our beginners.
+There is also a Rust implementation called [`rpt`](https://github.com/alenpaul2001/rpt). Thank you **alenpaul2001**.
 
 
 ## Building
