@@ -1,0 +1,70 @@
+.TH REPEAT 1 2023-12-29 0.3
+
+.SH NAME
+repeat \- repeat string
+
+.SH SYNOPSIS
+
+.SY concat
+repeat [-v] [-h] [-n] [-e] [-s <sep>] repetitions [string]
+.YS
+
+A string cannot be passed when text is piped into
+.BR repeat .
+
+.SH DESCRIPTION
+Commandline program that repeats a string by a given amount. Supports a separator string, reversing the input string and
+can be used in pipes.
+
+.SH OPTIONS
+.TP
+.BR \-s " " \fIsep
+optional separator string
+
+.TP
+.B \-e
+interpret some few escape sequences (\\\\,\\t,\\n)
+
+.TP
+.B \-n
+do not output the trailing newline
+
+.TP
+.B \-v
+print version info
+
+.TP
+.B \-h
+print help text
+
+.SH EXAMPLES
+
+.SS Repeat with string as parameter
+$ repeat 3 foo
+.br
+foofoofoo
+
+.SS Repeat with string from pipe
+$ echo 'foo' | repeat 3
+.br
+foofoofoo
+
+.SS Repeat with separator
+$ repeat -s ',' 3 foo
+.br
+foo,foo,foo
+
+.SS Repeat and invert string
+$ repeat -- -2 foo
+.br
+oofoof
+
+.SS Repeat and interpret basic escape sequence
+$ repeat -e -s '\\t' 3 foo
+.br
+foo   foo   foo
+
+
+.SH AUTHOR
+Marco Trosi
+
